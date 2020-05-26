@@ -40,7 +40,7 @@ bot.remove_command('help')
 async def on_ready():
     global theGuild
     print(f'{bot.user.name} has connected')
-    theGuild = bot.get_guild(691117560107630625)
+    theGuild = bot.get_guild(guildId)
 
 @bot.event
 async def on_command_error(ctx,error):
@@ -504,9 +504,9 @@ async def checkRole(ctx,role):
         return False
 
 def strToBool(val):
-    if val.lower() in ['yes', 'yea', 'true', 'yep', 'ye']:
+    if val.lower() in ['yes', 'yea', 'true', 'yep', 'ye', 'y', 'sure', 'ok']:
         return True
-    elif val.lower() in ['no', 'false', 'nope', 'nah']:
+    elif val.lower() in ['no', 'false', 'nope', 'nah', 'n']:
         return False
 
 def isNumber(val):
@@ -534,6 +534,13 @@ async def generateSettings(ctx):
         string = '{} is set to '. format(item[0])
         embed.add_field(name=string, value=item[1],inline=False)
     await ctx.send(embed=embed)
+
+async def checkForQuote(message):
+    speechBubble = "\u1F4AC"
+    reactions = message.reactions
+    for re in reactions:
+        if re == speechBubble:
+            await ctx.send("{0} reacted with the {1.emoji} emoji!".format(message.author.name, re)
 
 
 bot.loop.create_task(classCheck())
