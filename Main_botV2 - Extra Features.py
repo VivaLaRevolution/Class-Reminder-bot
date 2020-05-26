@@ -51,7 +51,9 @@ async def on_command_error(ctx,error):
     else:
         raise error
 
-
+@bot.event
+async def on_reaction_add(reaction, user):
+    await checkForQuote(reaction.message)
     
     
     
