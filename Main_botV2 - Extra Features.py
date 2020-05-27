@@ -24,6 +24,7 @@ reminder = True
 buffer = 5
 message_channel_id = 691134148622024776 #announcements
 message_channel_id2 = 694951438371258479 #test chat
+message_channel_id3 = 711411574279241799 #quotes book
 guildID = 691117560107630625 #2021 server
 status = ['Type ~help to find out my commands!','Type ~help to find out my commands!','Type ~help to find out my commands!','Type ~help to find out my commands!', 'TEAR DOWN THE BOURGOISE']
 times = classStuff.getTimes()
@@ -53,9 +54,10 @@ async def on_command_error(ctx,error):
         raise error
 
 @bot.event
-async def on_reaction_add(reaction, user):
+async def on_reaction_add(ctx, reaction, user):
     if reaction.emoji == '💬':
         await ctx.send(makeQuote(reaction, user)))
+        await reaction.message.clear_reaction('💬')
     
 
 #commands
@@ -399,7 +401,7 @@ async def quoteDay(ctx, ide = None):
         while True:
             randomQuote = random.choice(quotesList)
             if randomQuote["random-get"]:
-                await ctx.send("Here is a random quote: \"{0}\" --{1}, day {2}".format(randomQuote["text"], randomQuote["user"], randomQuote["diff"]))
+                await ctx.send("Here is a random quote: \"{0}\" --{1}, day {2}, quoted by {3}".format(randomQuote["text"], randomQuote["user"], randomQuote["diff"], randomQuote["quoted-by"]))
                 break
         quotesList.close()
 
@@ -530,10 +532,15 @@ async def generateSettings(ctx):
 # Function is called when someone reacts with a quote emoji
 async def makeQuote(reaction, user):
     message = reaction.message
+    reactionUsers = []
+    async for user in users:
+        await reactionUsers.append(user)
+
     oldQuotesList = json.loads(open("quotesList.json", "r").read())["quotes"]
     insert = {
         "text": message.content,
         "user": message.author.name,
+        "quoted-by": reactionUsers[0]
         "diff": datetime.datetime.strftime(datetime.datetime.utcnow() - message.created_at, "%d"),
         "random-get": True
     }
@@ -543,7 +550,7 @@ async def makeQuote(reaction, user):
     newQuotesList.write(json.dumps(oldQuotesList))
     newQuotesList.close()
 
-    return "\"{}\" quoted by {} on day {}".format(insert["text"], insert["user"], insert["diff"])
+    return "\"{}\" said by {}, quoted by {} on day {}".format(insert["text"], insert["user"], insert["quoted-by"], insert["diff"])
     
 
 bot.loop.create_task(classCheck())

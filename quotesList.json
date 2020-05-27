@@ -3,8 +3,87 @@
 		{
 			"text": "A sample quote",
 			"user": "Seabass",
+			"quoted-by": "Sean",
 			"diff": 11,
 			"random-get": false
+		},
+		{
+			"text": "Not Hentai though, if you're gonna watch porn, do it right",
+			"user": "Seabass",
+			"quoted-by": "Sean",
+			"diff": 1,
+			"random-get": true
+		},
+		{
+			"text": "We all know the power of a dog's mouth",
+			"user": "Sean",
+			"quoted-by": "Grand Supreme Dread Lord Saketh",
+			"diff": 2,
+			"random-get": true
+		},
+		{
+			"text": "How do you feel that Noah is higher up on my snap chat best friends list than you",
+			"user": "elizabeth (mark's gf)",
+			"quoted-by": "Mark",
+			"diff": 3,
+			"random-get": true
+		},
+		{
+			"text": "Are you special needs",
+			"user": "Mark's Teammates",
+			"quoted-by": "Sean",
+			"diff": 4,
+			"random-get": true
+		},
+		{
+			"text": "I had to piss in a cup and it was overflowing so I had to, yknow, kink the hose",
+			"user": "Mark",
+			"quoted-by": "Sean",
+			"diff": 5,
+			"random-get": true
+		},
+		{
+			"text": "Full on power washer splashing out of the cup everywhere",
+			"user": "Mark",
+			"quoted-by": "Sean",
+			"diff": 5,
+			"random-get": true
+		},
+		{
+			"text": "I'm going to be a miner/minor abusing other miners/minors",
+			"user": "Sean",
+			"quoted-by": "Grand Supreme Dread Lord Saketh",
+			"diff": 6,
+			"random-get": true
+		},
+		{
+			"text": "PSA: Do not go scrolling through discord at an airport",
+			"user": "Seabass",
+			"quoted-by": "Grand Supreme Dread Lord Saketh",
+			"diff": 7,
+			"random-get": true
+		},
+		{
+			"text": "I'm not a murderer, I'm liberating people of their corporeal form",
+			"user": "Vivalasvegas",
+			"quoted-by": "Sean",
+			"diff": 9,
+			"random-get": true
+		},
+		{
+			"text": "'I wish I could just drink liquid emeralds' 'You want to drink liquidized metal?' 'Yes I want to drink liquid gems' 'I wonder what would happen if you drinked gallium'",
+			"user": "Grand Supreme Dread Lord Saketh and Sean",
+			"quoted-by": "Grand Supreme Dread Lord Saketh",
+			"diff": 10,
+			"random-get": true
+		},
+		{
+			"text": "My favorite thing about downloading a game while in a VC with Viva is it makes him sound robotic. So when he screams it sounds like a robot being assaulted",
+			"user": "Sean",
+			"quoted-by": "Seabass",
+			"diff": 11,
+			"random-get": true
 		}
+
 	]
 }
