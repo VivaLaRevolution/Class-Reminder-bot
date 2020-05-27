@@ -531,16 +531,19 @@ async def generateSettings(ctx):
 async def makeQuote(reaction, user):
     message = reaction.message
     oldQuotesList = json.loads(open("quotesList.json", "r").read())["quotes"]
-    oldQuotesList.append({
+    insert = {
         "text": message.content,
         "user": message.author.name,
         "diff": datetime.datetime.strftime(datetime.datetime.utcnow() - message.created_at, "%d"),
         "random-get": True
-    })
+    }
+    oldQuotesList.append(insert)
 
     newQuotesList = open("quotesList.json", "w")
     newQuotesList.write(json.dumps(oldQuotesList))
     newQuotesList.close()
+
+    return "\"{}\" quoted by {} on day {}".format(insert["text"], insert["user"], insert["diff"])
     
 
 bot.loop.create_task(classCheck())
