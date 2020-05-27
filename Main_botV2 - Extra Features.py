@@ -11,6 +11,7 @@ import time
 import CeasarCipher as ceasar
 import vingenere_project as vig
 import random
+import json
 
 
 load_dotenv()
@@ -53,12 +54,8 @@ async def on_command_error(ctx,error):
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    message = reaction.message
-    channel = message.channel
     if reaction.emoji == '💬':
-        await channel.send('eyyyy someone reacted with {}'. format(reaction.emoji))
-    
-    
+        await ctx.send(makeQuote(reaction, user)))
     
 
 #commands
@@ -395,26 +392,16 @@ async def send(ctx,channelOruser,msg):
 @bot.command(name = 'quote')
 async def quoteDay(ctx, ide = None):
     if ide == 'book':
-        start = datetime.datetime(2020,5,16,0,0,0)
-        now = datetime.datetime.now()
-        diff = now - start
-        diff = str(diff)
-        diffSTR = ''
-        for a in diff:
-            if a == ',':
-                break
-            diffSTR += a
-        await ctx.send('The quote book has been going on for {}'. format(diffSTR))
+        diff = datetime.strftime(datetime.datetime.now() - datetime.datetime(2020,5,16,0,0,0), "%d") # Calculates the number of days between now and 5/16/2020
+        await ctx.send('The quote book has been going on for {} days'.format(diff))
     if ide == 'random':
-        channel = bot.get_channel(711411574279241799)
-        msgList = []
-        async for message in channel.history(limit = 1000):
-            msgList.append(message)
-        newMsg = random.choice(msgList)
-        await ctx.send('Here is a random quote: "{}"'. format(newMsg.content))
-
-
-
+        quotesList = json.loads(open(quotesList.json, "r").read())["quotes"]
+        while True:
+            randomQuote = random.choice(quotesList)
+            if randomQuote["random-get"]:
+                await ctx.send("Here is a random quote: \"{0}\" --{1}, day {2}".format(randomQuote["text"], randomQuote["user"], randomQuote["diff"]))
+                break
+        quotesList.close()
 
 #Background tasks
 
@@ -540,13 +527,21 @@ async def generateSettings(ctx):
         embed.add_field(name=string, value=item[1],inline=False)
     await ctx.send(embed=embed)
 
-async def checkForQuote(message):
-    speechBubble = "\u1F4AC"
-    reactions = message.reactions
-    for re in reactions:
-        if re == speechBubble:
-            await ctx.send("{0} reacted with the {1.emoji} emoji!".format(message.author.name, re)
+# Function is called when someone reacts with a quote emoji
+async def makeQuote(reaction, user):
+    message = reaction.message
+    oldQuotesList = json.loads(open("quotesList.json", "r").read())["quotes"]
+    oldQuotesList.append({
+        "text": message.content,
+        "user": message.author.name,
+        "diff": datetime.datetime.strftime(datetime.datetime.utcnow() - message.created_at, "%d"),
+        "random-get": True
+    })
 
+    newQuotesList = open("quotesList.json", "w")
+    newQuotesList.write(json.dumps(oldQuotesList))
+    newQuotesList.close()
+    
 
 bot.loop.create_task(classCheck())
 bot.loop.create_task(timeRefresh())
