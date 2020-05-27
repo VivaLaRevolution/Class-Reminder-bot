@@ -53,7 +53,10 @@ async def on_command_error(ctx,error):
 
 @bot.event
 async def on_reaction_add(reaction, user):
-    await checkForQuote(reaction.message)
+    message = reaction.message
+    channel = message.channel
+    if reaction.emoji == '💬':
+        await channel.send('eyyyy someone reacted with {}'. format(reaction.emoji))
     
     
     
