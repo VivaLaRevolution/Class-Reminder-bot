@@ -1,0 +1,10 @@
+{
+	"quotes": [
+		{
+			"text": "A sample quote",
+			"user": "Seabass",
+			"diff": 11,
+			"random-get": false
+		}
+	]
+}
